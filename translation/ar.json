@@ -1,0 +1,35 @@
+{
+  "translation": {
+    "language": "لغة",
+    "settings": "إعدادات",
+    "log out": "تسجيل خروج",
+    "home": "بيت",
+    "portfolio": "مَلَفّ",
+    "search": "يبحث",
+    "search Products": "بحث عن المنتج",
+    "profile": "حساب تعريفي",
+    "your name": "اسمك",
+    "test task": "مهمة الاختبار",
+    "go to call": "اذهب للاتصال",
+    "before you start": "قبل ان تبدا ",
+    "sign up": "اشتراك",
+    "sign in": "تسجيل الدخول",
+    "personal account": "حساب شخصي",
+    "login": "تسجيل الدخول",
+    "email": "بريد إلكتروني",
+    "name": "اسم",
+    "name is required": "مطلوب اسم",
+    "enter your email": "أدخل بريدك الإلكتروني",
+    "email is required": "البريد الالكتروني مطلوب",
+    "password": "كلمة المرور",
+    "enter your password": "ادخل رقمك السري",
+    "password is required": "كلمة المرور مطلوبة",
+    "continue": "يكمل",
+    "create account": "إنشاء حساب",
+    "Error: Invalid E-mail or Password": "خطأ: البريد الإلكتروني أو كلمة المرور غير صالحة",
+    "posts":"دعامات",
+    "basic":"أساسي",
+    "other":"آخر"
+
+  }
+}

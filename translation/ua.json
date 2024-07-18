@@ -1,0 +1,32 @@
+{
+  "translation": {
+    "language": "Мова",
+    "settings": "Налаштування",
+    "log out": "Вийти",
+    "home": "Головна",
+    "portfolio": "Портфоліо",
+    "search": "Пошук",
+    "search Products": "Пошук Товарів",
+    "profile": "Профіль",
+    "your name": "Ваше ім'я",
+    "test task": "Тестове завдання",
+    "go to call": "Перейти до дзвінка",
+    "before you start": "Перш ніж почати",
+    "sign up": "Зареєструватися",
+    "sign in": "Увійти",
+    "personal account": "Особистий кабінет",
+    "login": "Логін",
+    "email": "Електронна пошта",
+    "name": "Ім'я",
+    "name is required": "Ім'я є обов'язковим",
+    "enter your email": "Введіть вашу електронну пошту",
+    "email is required": "Електронна пошта є обов'язковою",
+    "password": "Пароль",
+    "enter your password": "Введіть ваш пароль",
+    "password is required": "Пароль є обов'язковим",
+    "continue": "Продовжити",
+    "create account": "Створити обліковий запис",
+    "Error: Invalid E-mail or Password": "Помилка: Невірний E-mail або Пароль",
+    "posts":"Пости"
+  }
+}
