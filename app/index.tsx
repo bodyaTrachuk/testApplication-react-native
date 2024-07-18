@@ -76,7 +76,8 @@ const index: React.FC = () => {
 
         <TouchableOpacity
           style={styles.buttonSignUp}
-          onPress={() => router.navigate("/signUp")}
+          // onPress={() => router.navigate("/signUp")}
+          onPress={() => router.navigate("/pincode")}
         >
           <Text style={styles.buttonSignUpText}>{t("sign up")}</Text>
         </TouchableOpacity>

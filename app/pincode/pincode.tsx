@@ -148,9 +148,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    paddingHorizontal: 50,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: "#EBEFF5",
+    marginBottom: 15,
   },
   key: {
-    width: 60,
+    width: 80,
     height: 60,
     justifyContent: "center",
     alignItems: "center",
@@ -159,6 +164,7 @@ const styles = StyleSheet.create({
   },
   keyText: {
     fontSize: 24,
+    fontWeight: "700",
   },
   arrowIcon: {
     position: "absolute",
