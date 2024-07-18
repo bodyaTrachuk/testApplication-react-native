@@ -6,14 +6,15 @@ interface UserProps {
   name: string;
   email: string;
   password: string;
-  pin: string;
-} 
+  pin?: string;
+}
 
 interface AuthContextTypeProps {
   user: UserProps | null;
   isLogged: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
+  setPin: (pin: string) => Promise<void>;
   signOut: () => Promise<void>;
   confirmPin: (pin: string) => Promise<void>;
 }
@@ -36,13 +37,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       return;
     }
     try {
-      const pin = Math.floor(1000 + Math.random() * 9000).toString();
-      const newUser: UserProps = { name, email, password, pin };
+      const newUser: UserProps = { name, email, password };
       await AsyncStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
       setIsLogged(true);
-      router.replace("/home");
-      alert(`Your PIN is ${pin}. Please remember it.`);
+      router.replace("/pincode");
     } catch (error) {
       console.error("Failed to sign up:", error);
       alert("An error occurred during sign up. Please try again.");
@@ -61,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (parsedUser.email === email && parsedUser.password === password) {
           setUser(parsedUser);
           setIsLogged(true);
-          router.replace("/home");
+          router.replace("/pincode");
         } else {
           alert("Invalid email or password");
           router.replace("/");
@@ -76,10 +75,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const setPin = async (pin: string) => {
+    if (!pin) {
+      alert("Please provide a PIN");
+      return;
+    }
+    try {
+      if (user) {
+        const updatedUser = { ...user, pin };
+        await AsyncStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
+        router.replace("/home");
+      }
+    } catch (error) {
+      console.error("Failed to set PIN:", error);
+      alert("An error occurred while setting the PIN. Please try again.");
+    }
+  };
+
   const signOut = async () => {
     try {
-      await AsyncStorage.removeItem("user");
-      setUser(null);
+      // await AsyncStorage.removeItem("user");
+      // setUser(null);
       setIsLogged(false);
       router.replace("/");
     } catch (error) {
@@ -87,12 +104,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       alert("An error occurred during sign out. Please try again.");
     }
   };
-
+ 
   const confirmPin = async (pin: string) => {
     if (!pin) {
       alert("Please provide the PIN");
       return;
-    } 
+    }
     try {
       const storedUser = await AsyncStorage.getItem("user");
       if (storedUser) {
@@ -115,7 +132,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isLogged, signIn, signUp, signOut, confirmPin }}
+      value={{ user, isLogged, signIn, signUp, setPin, signOut, confirmPin }}
     >
       {children}
     </AuthContext.Provider>

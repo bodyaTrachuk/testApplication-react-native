@@ -10,8 +10,12 @@ const pinCode = () => {
   const [pin, setPin] = useState<string>("");
   const authContext = useContext(AuthContext);
 
+  if (!authContext) {
+    return <Text>Loading...</Text>;
+  }
+
   const handleKeyPress = (digit: string): void => {
-    if (pin.length < 4) {
+    if (pin.length < 5) {
       setPin(pin + digit);
     }
   };
@@ -20,11 +24,19 @@ const pinCode = () => {
     setPin(pin.slice(0, -1));
   };
 
+  const handleContinue = (): void => {
+    if (authContext.user?.pin) {
+      authContext.confirmPin(pin);
+    } else {
+      authContext.setPin(pin);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfo}>
-        <TouchableOpacity 
-          onPress={() => router.replace('/')}
+        <TouchableOpacity
+          onPress={() => router.replace("/")}
           style={styles.arrowIcon}
         >
           <Image source={icons.greyArrowAgle} />
@@ -35,10 +47,16 @@ const pinCode = () => {
           style={styles.buttonSignIn}
           onPress={() => router.replace("/")}
         >
-          <Text style={styles.buttonSignInText}>{t("create account")}</Text>
+          {authContext.user?.pin ? (
+            <Text style={styles.buttonSignInText}>
+              {t("enter 5 digit code")}
+            </Text>
+          ) : (
+            <Text style={styles.buttonSignInText}>{t("create account")}</Text>
+          )}
         </TouchableOpacity>
         <View style={styles.pinContainer}>
-          {[...Array(4)].map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <View key={index} style={styles.pinBlock}>
               <View
                 style={[styles.filledPin, pin[index] ? styles.activePin : null]}
@@ -62,10 +80,7 @@ const pinCode = () => {
             <Text style={styles.keyText}>⌫</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.buttonSignUp}
-          onPress={() => authContext?.confirmPin(pin)}
-        >
+        <TouchableOpacity style={styles.buttonSignUp} onPress={handleContinue}>
           <Text style={styles.buttonSignUpText}>{t("continue")}</Text>
         </TouchableOpacity>
       </View>

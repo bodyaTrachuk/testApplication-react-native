@@ -26,6 +26,7 @@
     "password is required": "Пароль є обов'язковим",
     "continue": "Продовжити",
     "create account": "Створити обліковий запис",
+    "enter 5 digit code:":"Введіть 5 цифровий код",
     "Error: Invalid E-mail or Password": "Помилка: Невірний E-mail або Пароль",
     "posts":"Пости"
   }

@@ -26,6 +26,7 @@
     "password is required": "パスワードは必須です",
     "continue": "続行",
     "create account": "アカウントを作成",
+    "enter 5 digit code:":"5桁のコードを入力してください",
     "Error: Invalid E-mail or Password": "エラー：無効なメールアドレスまたはパスワード",
     "posts": "投稿",
     "basic": "基本的な",

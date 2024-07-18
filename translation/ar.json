@@ -26,10 +26,10 @@
     "password is required": "كلمة المرور مطلوبة",
     "continue": "يكمل",
     "create account": "إنشاء حساب",
+    "enter 5 digit code:": "أدخل الرمز المكون من 5 ",
     "Error: Invalid E-mail or Password": "خطأ: البريد الإلكتروني أو كلمة المرور غير صالحة",
-    "posts":"دعامات",
-    "basic":"أساسي",
-    "other":"آخر"
-
+    "posts": "دعامات",
+    "basic": "أساسي",
+    "other": "آخر"
   }
 }
