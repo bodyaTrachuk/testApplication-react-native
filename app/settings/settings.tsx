@@ -6,98 +6,39 @@ import { useTranslation } from "react-i18next";
 import { router } from "expo-router";
 
 const index = () => {
-  const [english, setEnglish] = useState<boolean>(false);
-  const [arabic, setArabic] = useState<boolean>(false);
-  const [japan, setJapan] = useState<boolean>(false);
-  const [ukraine, setUkraine] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
 
-  const handleLanguageEnglish = () => {
-    setEnglish(true);
-    setArabic(false);
-    setJapan(false);
-    setUkraine(false);
-    i18n.changeLanguage("en");
-  };
-
-  const handleLanguageArabic = () => {
-    setArabic(true);
-    setEnglish(false);
-    setJapan(false);
-    setUkraine(false);
-    i18n.changeLanguage("ar");
-  };
-
-  const handleLanguageJapan = () => {
-    setJapan(true);
-    setArabic(false);
-    setEnglish(false);
-    setUkraine(false);
-    i18n.changeLanguage("jp");
-  };
-  const handleLanguageUkraine = () => {
-    setUkraine(true);
-    setJapan(false);
-    setArabic(false);
-    setEnglish(false);
-    i18n.changeLanguage("ua");
-  };
+  const languages = [
+    { code: "en", tittle: "English" },
+    { code: "ar", tittle: "Arabic" },
+    { code: "jp", tittle: "Japanese" },
+    { code: "ua", tittle: "Ukrainian" },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => router.back()} style={styles.arrowIcon}>
         <Image source={icons.greyArrowAgle} />
       </TouchableOpacity>
-      <View style={styles.settingBlock}>
-        <Text style={styles.settingTitle}>{t("language")}</Text>
-
-        <TouchableOpacity
-          style={styles.settingButton}
-          onPress={handleLanguageEnglish}
-        >
-          <View style={styles.settingText}>
-            <Image source={icons.globe} />
-            <Text style={styles.titles}>English</Text>
-          </View>
-          <Image source={english ? icons.acrive : icons.userIcon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.settingBlock}>
-        <TouchableOpacity
-          style={styles.settingButton}
-          onPress={handleLanguageArabic}
-        >
-          <View style={styles.settingText}>
-            <Image source={icons.globe} />
-            <Text style={styles.titles}>Arabic</Text>
-          </View>
-          <Image source={arabic ? icons.acrive : icons.userIcon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.settingBlock}>
-        <TouchableOpacity
-          style={styles.settingButton}
-          onPress={handleLanguageJapan}
-        >
-          <View style={styles.settingText}>
-            <Image source={icons.globe} />
-            <Text style={styles.titles}>Japan</Text>
-          </View>
-          <Image source={japan ? icons.acrive : icons.userIcon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.settingBlock}>
-        <TouchableOpacity
-          style={styles.settingButton}
-          onPress={handleLanguageUkraine}
-        >
-          <View style={styles.settingText}>
-            <Image source={icons.globe} />
-            <Text style={styles.titles}>Ukraine</Text>
-          </View>
-          <Image source={ukraine ? icons.acrive : icons.userIcon} />
-        </TouchableOpacity>
-      </View>
+      <Text style={styles.settingTitle}>{t("language")}</Text>
+      {languages.map((data) => (
+        <View style={styles.settingBlock} key={data.code}>
+          <TouchableOpacity
+            style={styles.settingButton}
+            onPress={() => i18n.changeLanguage(data.code)}
+          >
+            <View style={styles.settingText}>
+              <Image source={icons.globe} />
+              <Text style={styles.titles}>{data.tittle}</Text>
+            </View>
+            <Image
+              source={
+                i18n.language === data.code ? icons.acrive : icons.userIcon
+              }
+            />
+          </TouchableOpacity>
+        </View>
+      ))}
     </SafeAreaView>
   );
 };
@@ -133,7 +74,13 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   titles: { fontSize: 15, fontWeight: "500" },
-  settingTitle: { fontSize: 22, fontWeight: "600" },
+  settingTitle: {
+    fontSize: 22,
+    fontWeight: "600",
+    alignSelf: "flex-start",
+    paddingLeft: 25,
+    paddingTop: 25,
+  },
   arrowIcon: {
     position: "absolute",
     left: 20,
