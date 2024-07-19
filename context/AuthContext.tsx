@@ -75,6 +75,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const signOut = async () => {
+    try {
+      // await AsyncStorage.removeItem("user");
+      // setUser(null);
+      setIsLogged(false);
+      router.replace("/");
+    } catch (error) {
+      console.error("Failed to sign out:", error);
+      alert("An error occurred during sign out. Please try again.");
+    }
+  };
+
   const setPin = async (pin: string) => {
     if (!pin) {
       alert("Please provide a PIN");
@@ -93,18 +105,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signOut = async () => {
-    try {
-      // await AsyncStorage.removeItem("user");
-      // setUser(null);
-      setIsLogged(false);
-      router.replace("/");
-    } catch (error) {
-      console.error("Failed to sign out:", error);
-      alert("An error occurred during sign out. Please try again.");
-    }
-  };
- 
   const confirmPin = async (pin: string) => {
     if (!pin) {
       alert("Please provide the PIN");

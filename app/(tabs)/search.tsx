@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
   ScrollView,
-  StyleSheet,
   Text,
   TextInput,
   View,
@@ -11,15 +10,9 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
 import styles from "@/styles/searchStyle";
-// import axios from "axios";
-// import { useQuery } from "@tanstack/react-query";
-import searchPosts from "../../constants/searchPosts";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-
-interface Post {
-  id: number;
-  title: string;
-}
+import { Post, fetchPost } from "../../api/fetchPosts";
 
 interface ProductItemsProps {
   data: Post;
@@ -34,43 +27,63 @@ const ProductItems: React.FC<ProductItemsProps> = ({ data }) => {
   );
 };
 
-// const fetchPost = async (): Promise<Post[]> => {
-//   const response = await axios.get(
-//     "https://jsonplaceholder.typicode.com/posts?_limit=15"
-//   );
-//   return response.data;
-// };
-
 const Search: React.FC = () => {
-  // const { data, error, isLoading } = useQuery({
-  //   queryKey: ["post"],
-  //   queryFn: fetchPost,
-  // });
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["post"],
+    queryFn: () => fetchPost(15),
+  });
 
-  // if (isLoading) {
-  //   return <ActivityIndicator size="large" color="#0000ff" />;
-  // }
-
-  // if (error) {
-  //   return (
-  //     <View>
-  //       <Text>Error: {(error as Error).message}</Text>
-  //     </View>
-  //   );
-  // }
   const { t } = useTranslation();
-  const [filterData, setFilterData] = useState<Post[]>(searchPosts);
+  const [filterData, setFilterData] = useState<Post[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setFilterData(data);
+    }
+  }, [data]);
 
   const onChange = (text: string) => {
+    if (!data) return;
+
     if (text === "") {
-      setFilterData(searchPosts);
+      setFilterData(data);
     } else {
-      const filteredPosts = searchPosts.filter((post) =>
+      const filteredPosts = data.filter((post) =>
         post.title.toLowerCase().includes(text.toLowerCase())
       );
       setFilterData(filteredPosts);
     }
   };
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 15,
+        }}
+      >
+        <ActivityIndicator size="large" color="#C1C4CB" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 15,
+        }}
+      >
+        <Text>Error: {(error as Error).message}</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,13 +99,12 @@ const Search: React.FC = () => {
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {filterData &&
-          filterData.map((item) => <ProductItems key={item.id} data={item} />)}
+        {filterData.map((item) => (
+          <ProductItems key={item.id} data={item} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default Search;
-
-

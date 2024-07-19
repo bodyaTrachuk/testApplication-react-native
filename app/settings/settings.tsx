@@ -5,6 +5,7 @@ import icons from "../../constants/icons";
 import { useTranslation } from "react-i18next";
 import { router } from "expo-router";
 
+
 const index = () => {
   const { t, i18n } = useTranslation();
 
